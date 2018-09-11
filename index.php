@@ -1,74 +1,10 @@
 <html>
   <head>
-    <title>T-Shirt Portal</title>
+    <title>TT' 18 | Tshirt</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <meta name="T-Shirt" content="JSC3D">
-    <style>
-      div{
-        display: inline;
-      }
-      input,select{
-        border:0;
-        padding: 5 0 5 10;
-        border-radius: 10px;
-        width: 50%;
-        height: 30px;
-        margin: 15px 15px 15px 0px;
-        -webkit-transition: width 0.4s ease-in-out;
-        transition: width 0.4s ease-in-out;
-      }
-      input:hover,select:hover{
-        width:90%;
-      }
-      .button:hover{
-        background: rgba(0, 0, 0, 0.5);
-        color:white;
-        transition: 0.4s;
-      }
-      .editions{
-        position: absolute;
-        left: 340px;
-        top: 213.96px;
-        width: 642px;
-        height: 20px;
-        border: 1px solid rgb(0,0,0);
-        pointer-events: none;
-        display: none;
-      }
-      .editons2{
-        position: absolute;
-        left: 343px;
-        top: 216.96px;
-        width: 638px;
-        height: 16px;
-        background-color: rgb(0,0,0);
-        pointer-events: none;
-        display: none;
-        background-position: initial initial;
-        background-repeat: initial initial;
-      }
-      .editions3{
-        position: absolute;
-        left: 340px;
-        top: 197.96px;
-        width: 642px;
-        height: 14px;
-        font-weight: bold;
-        font-style: normal;
-        font-variant: normal;
-        font-size: 14px;
-        line-height: normal;
-        font-family: 'Courier New';
-        color: rgb(0,0,0);
-        pointer-events: none;
-        display: none;
-      }
-      body{
-        background: #466368;
-        background: -webkit-linear-gradient(#FFF, #000);
-        background: -moz-linear-gradient(#FFF, #000);
-        background: linear-gradient(#FFF, #000);
-      }
-    </style>
   </head>
   <body style="margin: 0px">
     <div style="width: 50%;
@@ -98,7 +34,7 @@
     </script>
     <div id="editions"></div>
     <div id="editions2"></div>
-    <div class="container-right" style="float: right; display:inline; width:40%; align: left; margin-top:100px">
+    <div class="container-right" style="float: right; display:inline; width:40%; align: left; margin-top:80px">
       <form>
         <h2>Sign up for Tech Tatva '18 Tees</h2>
         <p>
@@ -118,6 +54,8 @@
           </div>
           <input class="button" type="submit" value="Sign Up" name="continue">
         </p>
+        <a class="fb" href="https://www.facebook.com/MITtechtatva/">Facebook</a><br>
+        <a class="insta" href="https://www.instagram.com/mittechtatva/">Instagram</a>
       </form>
     </div>
   </body>

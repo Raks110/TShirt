@@ -1,0 +1,106 @@
+body{
+  background: #466368;
+  background: -webkit-linear-gradient(#FFF, #000);
+  background: -moz-linear-gradient(#FFF, #000);
+  background: linear-gradient(#FFF, #000);
+}
+
+div{
+  display: inline;
+}
+
+input,select{
+  border:0;
+  padding: 5 0 5 10;
+  border-radius: 10px;
+  width: 50%;
+  height: 30px;
+  margin: 15px 15px 15px 0px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+input:hover,select:hover{
+  background-color: #dbdbdb;
+  color: #000;
+  transition: 0.4s;
+}
+
+
+.button:hover{
+  background: rgba(0, 0, 0, 0.5);
+  color:white;
+  transition: 0.4s;
+}
+
+.button:focus{
+  background: #fff;
+  color:#000;
+  transition: 0.1s;
+}
+
+.editions{
+  position: absolute;
+  left: 340px;
+  top: 213.96px;
+  width: 642px;
+  height: 20px;
+  border: 1px solid rgb(0,0,0);
+  pointer-events: none;
+  display: none;
+}
+
+.editons2{
+  position: absolute;
+  left: 343px;
+  top: 216.96px;
+  width: 638px;
+  height: 16px;
+  background-color: rgb(0,0,0);
+  pointer-events: none;
+  display: none;
+  background-position: initial initial;
+  background-repeat: initial initial;
+}
+
+.editions3{
+  position: absolute;
+  left: 340px;
+  top: 197.96px;
+  width: 642px;
+  height: 14px;
+  font-weight: bold;
+  font-style: normal;
+  font-variant: normal;
+  font-size: 14px;
+  line-height: normal;
+  font-family: 'Courier New';
+  color: rgb(0,0,0);
+  pointer-events: none;
+  display: none;
+}
+
+a{
+  margin-top: 15px;
+  text-decoration: none;
+  font-family: sans-serif;
+}
+
+.fb{
+  color:#357ebd;
+}
+
+.insta{
+  position: relative;
+  top: 5px;
+  color:#dd5aa9;
+}
+
+a:hover{
+  color:#dbdbdb;
+  transition: 0.4s;
+}
+
+a:focus{
+  text-decoration: underline;
+}
