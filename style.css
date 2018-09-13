@@ -19,7 +19,9 @@ input,select{
   -webkit-transition: width 0.4s ease-in-out;
   transition: width 0.4s ease-in-out;
 }
-
+input[type="submit"]{
+  width:23%;
+}
 input:hover,select:hover{
   background-color: #dbdbdb;
   color: #000;
@@ -92,7 +94,6 @@ a{
 
 .insta{
   position: relative;
-  top: 5px;
   color:#dd5aa9;
 }
 
@@ -103,4 +104,35 @@ a:hover{
 
 a:focus{
   text-decoration: underline;
+}
+
+.fa {
+    padding: 0px 5px 0px 0px;
+    font-size: 20px;
+    width: 30px;
+    text-align: center;
+    text-decoration: none;
+}
+.fa-facebook {
+    background: rgba(255,255,255,0);
+    color: white;
+}
+.fa-facebook:hover{
+  color:#357ebd;
+}
+.fa-instagram {
+    background:rgba(255,255,255,0);
+    color:white;
+}
+
+.fa-instagram:hover{
+  color:#dd5aa9;
+}
+
+.container-right{
+  float: right;
+  display:inline;
+  width:40%;
+  align: left;
+  margin-top:80px
 }
