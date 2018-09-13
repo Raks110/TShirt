@@ -7,12 +7,16 @@
         $_SESSION["error"]="Please don't leave any field empty.";
     }
     else{
-      if(($_POST["phone"]/1000000000)<0){
+      if(!preg_match ("/[^0-9]/", $_POST["phone"])){
         $_SESSION["error"]="Phone number seems invalid.";
+        header('Location:tshirt.php');
+        return;
       }
       else{
-        if(($_POST["reg"]/1000000000)<0){
+        if(!preg_match ("/[^0-9]/", $_POST["reg"])){
           $_SESSION["error"]="Registration Number seems invalid.";
+          header('Location:tshirt.php');
+          return;
         }
         else{
           $sql="SELECT sizeID FROM size WHERE Size=:s";
@@ -63,7 +67,7 @@
       }
     }
   }
-  if(isset($_POST["continue1"])){
+  if(isset($_POST["continue2"])){
     if(empty($_POST["name"])||(empty($_POST["reg"]))||empty($_POST["size"])||empty($_POST["phone"])){
         $_SESSION["error"]="Please don't leave any field empty.";
     }
