@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2018 at 08:06 AM
+-- Generation Time: Sep 13, 2018 at 01:18 PM
 -- Server version: 10.1.35-MariaDB
 -- PHP Version: 7.2.9
 
@@ -36,6 +36,30 @@ CREATE TABLE `infodesk` (
   `iusername` varchar(255) DEFAULT NULL,
   `ipass` varchar(512) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `infodesk`
+--
+
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `logintime`
+--
+
+CREATE TABLE `logintime` (
+  `logID` int(11) NOT NULL,
+  `logintime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `infoID` int(11) DEFAULT NULL,
+  `sysID` int(11) DEFAULT NULL,
+  `logouttime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `logintime`
+--
+
 
 -- --------------------------------------------------------
 
@@ -115,6 +139,7 @@ CREATE TABLE `student` (
 -- Dumping data for table `student`
 --
 
+
 -- --------------------------------------------------------
 
 --
@@ -126,6 +151,11 @@ CREATE TABLE `sysadmin` (
   `susername` varchar(255) DEFAULT NULL,
   `spass` varchar(512) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `sysadmin`
+--
+
 
 -- --------------------------------------------------------
 
@@ -148,6 +178,7 @@ CREATE TABLE `tpay` (
 -- Dumping data for table `tpay`
 --
 
+
 --
 -- Indexes for dumped tables
 --
@@ -157,6 +188,14 @@ CREATE TABLE `tpay` (
 --
 ALTER TABLE `infodesk`
   ADD PRIMARY KEY (`infoID`);
+
+--
+-- Indexes for table `logintime`
+--
+ALTER TABLE `logintime`
+  ADD PRIMARY KEY (`logID`),
+  ADD KEY `infoID` (`infoID`),
+  ADD KEY `sysID` (`sysID`);
 
 --
 -- Indexes for table `mode`
@@ -212,35 +251,48 @@ ALTER TABLE `tpay`
 -- AUTO_INCREMENT for table `infodesk`
 --
 ALTER TABLE `infodesk`
-  MODIFY `infoID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `infoID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `logintime`
+--
+ALTER TABLE `logintime`
+  MODIFY `logID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `mode`
 --
 ALTER TABLE `mode`
-  MODIFY `modeID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `modeID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `studID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `studID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sysadmin`
 --
 ALTER TABLE `sysadmin`
-  MODIFY `sysID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sysID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tpay`
 --
 ALTER TABLE `tpay`
-  MODIFY `payID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `payID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `logintime`
+--
+ALTER TABLE `logintime`
+  ADD CONSTRAINT `logintime_ibfk_1` FOREIGN KEY (`infoID`) REFERENCES `infodesk` (`infoID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `logintime_ibfk_2` FOREIGN KEY (`sysID`) REFERENCES `sysadmin` (`sysID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `student`
