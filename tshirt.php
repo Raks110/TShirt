@@ -1,5 +1,4 @@
 <?php
-
   session_start();
   require_once('pdo.php');
   if(isset($_POST["continue"])){
@@ -7,12 +6,16 @@
         $_SESSION["error"]="Please don't leave any field empty.";
     }
     else{
-      if(($_POST["phone"]/1000000000)<0){
+      if(!isset($_POST["phone"])){
         $_SESSION["error"]="Phone number seems invalid.";
+        header('Location:tshirt.php');
+        return;
       }
       else{
-        if(($_POST["reg"]/1000000000)<0){
+        if(!isset($_POST["reg"])){
           $_SESSION["error"]="Registration Number seems invalid.";
+          header('Location:tshirt.php');
+          return;
         }
         else{
           $sql="SELECT sizeID FROM size WHERE Size=:s";
@@ -63,16 +66,16 @@
       }
     }
   }
-  if(isset($_POST["continue1"])){
+  if(isset($_POST["continue2"])){
     if(empty($_POST["name"])||(empty($_POST["reg"]))||empty($_POST["size"])||empty($_POST["phone"])){
         $_SESSION["error"]="Please don't leave any field empty.";
     }
     else{
-      if(($_POST["phone"]/1000000000)<0){
+      if(!isset($_POST["phone"])){
         $_SESSION["error"]="Phone number seems invalid.";
       }
       else{
-        if(($_POST["reg"]/1000000000)<0){
+        if(!isset($_POST["reg"])){
           $_SESSION["error"]="Registration Number seems invalid.";
         }
         else{
@@ -124,7 +127,6 @@
       }
     }
   }
-
 ?>
 
 <html>
@@ -135,14 +137,33 @@
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="T-Shirt" content="JSC3D">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script>
+      $(document).ready(function(){
+       $("a").on('click', function(event) {
+         if (this.hash !== "") {
+           event.preventDefault();
+           var hash = this.hash;
+           $('html, body').animate({
+             scrollTop: $(hash).offset().top
+           }, 800, function(){
+             window.location.hash = hash;
+           });
+         }
+       });
+      });
+    </script>
   </head>
   <body style="margin: 0px">
-    <div style="width: 40%;
-                margin: 0 20 0 0;
-                position: relative;
-                font-size: 9pt;
-                color: #777;">
-      <canvas id="cv" style="width:inherit" height="425px"></canvas>
+    <nav>
+      <table>
+      <tr><td><a href="#cv">View the Tee</a></td>
+      <td><a href="#form">Sign-up Form</a></td></tr>
+      </table>
+    </nav>
+    <span class="heading1">Tech Tatva 2018 is here</span>
+    <div class="cvdiv">
+      <canvas id="cv" class="cvcv" style="width:inherit" height="450px"></canvas>
     </div>
     <script type="text/javascript" src="jsc3d.js"></script>
     <script type="text/javascript" src="jsc3d.touch.js"></script>
@@ -152,24 +173,24 @@
       var viewer = new JSC3D.Viewer(canvas);
       viewer.setParameter('SceneUrl','shirt.obj');
       viewer.setParameter('InitRotationX',0);
-      viewer.setParameter('InitRotationY',20);
+      viewer.setParameter('InitRotationY',22);
       viewer.setParameter('InitRotationZ',0);
       viewer.setParameter('ModelColor','#000000');
-      viewer.setParameter('BackgroundColor1','#FFFFFF');
-      viewer.setParameter('BackgroundColor2','#000000');
+      viewer.setParameter('BackgroundColor1','#9398ff');
+      viewer.setParameter('BackgroundColor2','#9398ff');
+      viewer.setParameter('Background','off');
       viewer.setParameter('RenderMode','textureflat');
+      viewer.setParameter('MipMapping','on');
       viewer.setParameter('Definition','high');
       viewer.setParameter('Renderer','webgl');
-      viewer.setParameter('Background','off');
-      viewer.setParameter('ProgressBar','on');
       viewer.init();
       viewer.update();
     </script>
     <div id="editions"></div>
     <div id="editions2"></div>
     <div class="container-right">
-      <form action="tshirt.php" method="post">
-        <h2>Sign up for Tech Tatva '18 Tees</h2>
+      <form action="tshirt.php" method="post" id="form">
+        <span class="heading">Sign up for Tech Tatva '18 Tees</span>
         <p>
         <?php
           if(isset($_SESSION["error"])){
@@ -187,7 +208,7 @@
           Reg no. <br><input type="number" pattern="/^\d+${10}/" placeholder="Registration Number" name="reg" required="required"><br>
           Phone no. <br><input type="number" pattern="/^\d+${10}/" placeholder="Phone number" name="phone" required="required"><br>
           Size<br>
-          <div class="select-custom" style="display:inline; width:50%; position:relative; border-radius:20px">
+          <!--<div class="select-custom" style="display:inline; width:50%; position:relative; border-radius:20px;margin:0">-->
           <select name="size" required="required">
               <option hidden selected>Set your size</option>
               <option>S</option>
@@ -196,8 +217,7 @@
               <option>XL</option>
               <option>XXL</option>
             </select>
-          </div><br>
-          <input class="button" type="submit" value="Pay Online" name="continue">
+          <br>
           <input class="button" type="submit" value="Pay Offline" name="continue2">
         </p>
         <a href="https://www.facebook.com/MITtechtatva/" class="fa fa-facebook"></a><a class="fb" href="https://www.facebook.com/MITtechtatva/">@MITtechtatva</a><br>
