@@ -131,7 +131,7 @@ CREATE TABLE `student` (
   `studID` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `reg` int(11) DEFAULT NULL,
-  `phone` int(11) DEFAULT NULL,
+  `phone` bigint(11) DEFAULT NULL,
   `sizeID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
