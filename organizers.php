@@ -3,21 +3,31 @@
   require_once('pdo.php');
   if(isset($_POST['cancel'])){
     unset($_POST["submit"]);
+    header('Location:organizers.php');
   }
 
   ?>
 
   <html>
-  <head><title>Tees Organizer</title></head>
-  <body>
-    <form method="post" action="organizers.php">
+  <head>
+    <title>Tees Organizer</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+      input[type="text"]:hover,input[type="text"]:focus{
+        background-color: #cccccc;
+        transition: 0.8s;
+      }
+    </style>
+  </head>
+  <body style="padding:20px;">
+    <form method="post" action="organizers.php" class="form-inline">
       <?php
       if(!isset($_POST["submit"])){
-        echo "<input type='text' name='search' placeholder='Search Here'>";
-        echo '<input type="submit" value="Search" name="submit">';
+        echo "<input type='text' name='search' placeholder='Search Here' class='form-control' style='margin-right:10px'>";
+        echo '<input type="submit" value="Search" name="submit" class="btn btn-primary">';
       }
       else{
-        echo "<input type='submit' value='Cancel Search' name='cancel'>";
+        echo "<input type='submit' value='View All Orders' name='cancel' class='btn btn-primary'>";
       }
       ?>
     </form>
@@ -34,9 +44,9 @@
           $sql="SELECT tpay.payID,student.name,student.reg,student.phone,size.Size FROM tpay JOIN student JOIN size WHERE tpay.studID=student.studID AND size.sizeID=student.sizeID";
           $stmt=$pdo->prepare($sql);
           $stmt->execute();
+          echo "<table class='table table-hover'><tr><th>Payment ID</th><th>Student Name</th><th>Registration No.</th><th>Phone no.</th><th>Size</th></tr>";
           while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
-            echo "<table><tr><th>Payment ID</th><th>Student Name</th><th>Registration No.</th><th>Phone no.</th><th>Size</th></tr><tr><td>";
-            echo $row['payID']."</td><td>";
+            echo "<tr><td>".$row['payID']."</td><td>";
             echo $row['name']."</td><td>";
             echo $row['reg']."</td><td>";
             echo $row['phone']."</td><td>";
@@ -69,9 +79,9 @@
             ':pid'=>'%'.$_POST["search"].'%',
             ':s'=>'%'.$_POST["search"].'%'
           ));
+          echo "<table class='table table-hover'><tr><th>Payment ID</th><th>Student Name</th><th>Registration No.</th><th>Phone no.</th><th>Size</th></tr>";
           while($row=$stmt->fetch(PDO::FETCH_ASSOC)){
-            echo "<table><tr><th>Payment ID</th><th>Student Name</th><th>Registration No.</th><th>Phone no.</th><th>Size</th></tr><tr><td>";
-            echo $row['payID']."</td><td>";
+            echo "<tr><td>".$row['payID']."</td><td>";
             echo $row['name']."</td><td>";
             echo $row['reg']."</td><td>";
             echo $row['phone']."</td><td>";
