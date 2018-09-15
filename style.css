@@ -27,6 +27,15 @@ input:hover,select:hover{
   transition: 0.4s;
 }
 
+#error1{
+  display: none;
+  padding:20 20 0 20;
+}
+
+#error2{
+  display:block;
+  padding:20 0 20 0;
+}
 
 .button:hover{
   background: rgba(0, 0, 0, 0.5);
@@ -268,5 +277,11 @@ td{
     display: block;
     padding-top:25px;
     text-align: center;
+  }
+  #error1{
+    display:block;
+  }
+  #error2{
+    display:none;
   }
 }
