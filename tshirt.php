@@ -1,20 +1,18 @@
 <?php
-  session_start();
   require_once('pdo.php');
-  if(isset($_POST["continue"])){
+  if(isset($_POST["continue2"])){
     if(empty($_POST["name"])||(empty($_POST["reg"]))||empty($_POST["size"])||empty($_POST["phone"])){
-        $_SESSION["error"]="Please don't leave any field empty.";
+        header('Location:tshirt.php?err=1');
+        return;
     }
     else{
       if(!isset($_POST["phone"])){
-        $_SESSION["error"]="Phone number seems invalid.";
-        header('Location:tshirt.php');
+        header('Location:tshirt.php?err=2');
         return;
       }
       else{
         if(!isset($_POST["reg"])){
-          $_SESSION["error"]="Registration Number seems invalid.";
-          header('Location:tshirt.php');
+          header('Location:tshirt.php?err=3');
           return;
         }
         else{
@@ -35,70 +33,8 @@
             ));
           }
           catch(PDOException $err){
-            $_SESSION["error"]="Unexpected Error Encountered. Please contact the System Admin if the error persists.";
             error_log($err->getMessage());
-            header('Location:tshirt.php');
-            return;
-          }
-          if($stmt){
-            $sql="SELECT studID FROM student WHERE reg=:r";
-            $stmt=$pdo->prepare($sql);
-            $stmt->execute(array(
-              ':r'=>$_POST["reg"]
-            ));
-            $result=$stmt->fetch(PDO::FETCH_ASSOC);
-            $sql="INSERT INTO tpay(studID,statusID,modeID) VALUES(:s,2,1)";
-            $stmt=$pdo->prepare($sql);
-            $stmt->execute(array(
-              ':s'=>$result["studID"]
-            ));
-            $_SESSION["message"]="The payment is being processed. You will be notified once the order is placed.";
-            header('Location:tshirt.php');
-            return;
-          }
-          else{
-            $_SESSION["error"]="Unexpected Error Encountered. Please contact the System Admin if the error persists.";
-            error_log($err->getMessage());
-            header('Location:tshirt.php');
-            return;
-          }
-        }
-      }
-    }
-  }
-  if(isset($_POST["continue2"])){
-    if(empty($_POST["name"])||(empty($_POST["reg"]))||empty($_POST["size"])||empty($_POST["phone"])){
-        $_SESSION["error"]="Please don't leave any field empty.";
-    }
-    else{
-      if(!isset($_POST["phone"])){
-        $_SESSION["error"]="Phone number seems invalid.";
-      }
-      else{
-        if(!isset($_POST["reg"])){
-          $_SESSION["error"]="Registration Number seems invalid.";
-        }
-        else{
-          $sql="SELECT sizeID FROM size WHERE Size=:s";
-          $stmt=$pdo->prepare($sql);
-          $stmt->execute(array(
-            ':s'=>$_POST["size"]
-          ));
-          $result1=$stmt->fetch(PDO::FETCH_ASSOC);
-          $sql="INSERT INTO student(name,reg,phone,sizeID) VALUES (:name,:reg,:phone,:sizeID)";
-          $stmt=$pdo->prepare($sql);
-          try{
-            $stmt->execute(array(
-              ':name'=>$_POST["name"],
-              ':reg'=>$_POST["reg"],
-              ':phone'=>$_POST["phone"],
-              ':sizeID'=>$result1["sizeID"]
-            ));
-          }
-          catch(PDOException $err){
-            $_SESSION["error"]="Unexpected Error Encountered. Please contact the System Admin if the error persists.";
-            error_log($err->getMessage());
-            header('Location:tshirt.php');
+            header('Location:tshirt.php?err=4');
             return;
           }
           if($stmt){
@@ -113,14 +49,12 @@
             $stmt->execute(array(
               ':s'=>$result["studID"]
             ));
-            $_SESSION["message"]="The payment is being processed. You will be notified once the order is placed.";
-            header('Location:tshirt.php');
+            header('Location:tshirt.php?err=5');
             return;
           }
           else{
-            $_SESSION["error"]="Unexpected Error Encountered. Please contact the System Admin if the error persists.";
             error_log($err->getMessage());
-            header('Location:tshirt.php');
+            header('Location:tshirt.php?err=6');
             return;
           }
         }
@@ -162,6 +96,34 @@
       </table>
     </nav>
     <span class="heading1">Tech Tatva 2018 is here</span>
+    <p><div id="error1">
+
+      <?php
+
+      if(isset($_GET['err'])){
+        switch($_GET['err']){
+          case 1:
+            echo "Please don't leave any field empty.";
+            break;
+          case 2:
+            echo "Phone number seems invalid.";
+            break;
+          case 3:
+            echo "Registration Number seems invalid.";
+            break;
+          case 4:
+            echo "Unexpected Error occured. Please contact your System Admin if the error persists.";
+            break;
+          case 5:
+            echo "The Payment is being processed. Please make your payment at the Infodesk to successfully place your order.";
+            break;
+          case 6:
+            echo "Unexpected Error Encountered. Please contact the System Admin if the error persists.";
+            break;
+        }}
+      ?>
+
+    </div></p>
     <div class="cvdiv">
       <canvas id="cv" class="cvcv" style="width:inherit" height="450px"></canvas>
     </div>
@@ -190,25 +152,40 @@
     <div id="editions2"></div>
     <div class="container-right">
       <form action="tshirt.php" method="post" id="form">
-        <span class="heading">Sign up for Tech Tatva '18 Tees</span>
-        <p>
-        <?php
-          if(isset($_SESSION["error"])){
-            echo $_SESSION["error"];
-            unset($_SESSION["error"]);
-          }
-          if(isset($_SESSION["message"])){
-            echo $_SESSION["message"];
-            unset($_SESSION["message"]);
-          }
-        ?>
-        </p>
+        <span class="heading">Sign up for Tech Tatva '18 Tees</span><br>
+        <div id="error2">
+
+          <?php
+
+          if(isset($_GET['err'])){
+            switch($_GET['err']){
+              case 1:
+                echo "Please don't leave any field empty.";
+                break;
+              case 2:
+                echo "Phone number seems invalid.";
+                break;
+              case 3:
+                echo "Registration Number seems invalid.";
+                break;
+              case 4:
+                echo "Unexpected Error occured. Please contact your System Admin if the error persists.";
+                break;
+              case 5:
+                echo "The Payment is being processed. Please make your payment at the Infodesk to successfully place your order.";
+                break;
+              case 6:
+                echo "Unexpected Error Encountered. Please contact the System Admin if the error persists.";
+                break;
+            }}
+          ?>
+
+        </div>
         <p>
           Name <br><input type="text" name="name" placeholder="Enter your name here." required="required"><br>
           Reg no. <br><input type="number" pattern="/^\d+${10}/" placeholder="Registration Number" name="reg" required="required"><br>
           Phone no. <br><input type="number" pattern="/^\d+${10}/" placeholder="Phone number" name="phone" required="required"><br>
           Size<br>
-          <!--<div class="select-custom" style="display:inline; width:50%; position:relative; border-radius:20px;margin:0">-->
           <select name="size" required="required">
               <option hidden selected>Set your size</option>
               <option>S</option>
